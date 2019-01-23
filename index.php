@@ -26,6 +26,8 @@
 
 <div id="inleiding">
 	<h1>Centraal Tekeningen Archief</h1>
+
+	<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
 </div>
 
 
@@ -63,8 +65,6 @@
 		maxZoom: 20,
 		ext: 'png'
 	}).addTo(map);
-
-	L.control.attribution({position: 'bottomleft'}).addTo(map);
 
 	map.on('moveend', function(e) {
 	    $("#inbbox").prop('checked', true);
@@ -123,6 +123,8 @@
 
 		$('#resultaten h1').html(props['name'] + ', ' + props['count'] + ' dossiers');
 	  	
+	  	$('#dossiers').load('dossiers.php?street=' + props['street']);
+
 	}
 
 	$(document).ready(function(){

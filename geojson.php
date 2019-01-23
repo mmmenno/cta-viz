@@ -55,7 +55,7 @@ foreach ($data['results']['bindings'] as $row) {
 $json = json_encode($fc);
 
 //file_put_contents('buildings.geojson', $json);
-
+header('Content-Type: application/json');
 die($json);
 
 
