@@ -1,0 +1,9 @@
+# https://api.data.adamlink.nl/datasets/saa/CTA/services/endpoint/sparql
+
+PREFIX dc: <http://purl.org/dc/elements/1.1/>
+PREFIX geo: <http://www.opengis.net/ont/geosparql#>
+PREFIX dct: <http://purl.org/dc/terms/>
+SELECT * WHERE {
+  ?dossier dct:spatial ?straat .
+  ?straat geo:hasGeometry/geo:asWKT ?wkt .
+}

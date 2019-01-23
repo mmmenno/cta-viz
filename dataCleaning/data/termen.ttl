@@ -1,0 +1,37 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<http://vocab.getty.edu/aat/300000348> rdfs:label "dierentuinen" .
+
+<http://vocab.getty.edu/aat/300000414> rdfs:label "krachtcentrales" .
+
+<http://vocab.getty.edu/aat/300000681> rdfs:label "luchthaven" .
+
+<http://vocab.getty.edu/aat/300002526> rdfs:label "façades" .
+
+<http://vocab.getty.edu/aat/300006049> rdfs:label "politiebureaus" .
+
+<http://vocab.getty.edu/aat/300006122> rdfs:label "riolen" .
+
+<http://vocab.getty.edu/aat/300006187> rdfs:label "pompinstallaties" .
+
+<http://vocab.getty.edu/aat/300006443> rdfs:label "elektrische onderstations" .
+
+<http://vocab.getty.edu/aat/300006495> rdfs:label "scholen" .
+
+<http://vocab.getty.edu/aat/300006676> rdfs:label "ziekenhuizen" .
+
+<http://vocab.getty.edu/aat/300007780> rdfs:label "metrostations" .
+
+<http://vocab.getty.edu/aat/300007836> rdfs:label "bruggen" .
+
+<http://vocab.getty.edu/aat/300008203> rdfs:label "speelplaatsen" .
+
+<http://vocab.getty.edu/aat/300170875> rdfs:label "sportvelden" .
+
+<http://vocab.getty.edu/aat/300266061> rdfs:label "vegetatie" .
+
+<http://vocab.getty.edu/aat/300404856> rdfs:label "dokken" .
+
