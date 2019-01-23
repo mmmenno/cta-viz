@@ -13,10 +13,11 @@ PREFIX hg: <http://rdf.histograph.io/>
 SELECT * WHERE
 { 
   {
-    SELECT ?dossier ?datum ?jaar ?description ?subject ?label WHERE 
+    SELECT ?dossier ?datum ?jaar ?description ?subject ?label ?scope WHERE 
     {
       ?dossier dct:spatial <' . $_GET['street'] . '> .
       ?dossier dc:description ?description .
+      ?dossier dc:identifier ?scope .
       OPTIONAL{ 
         ?dossier dc:subject ?subject . 
         ?subject rdfs:label ?label .
@@ -30,10 +31,11 @@ SELECT * WHERE
   }
   UNION
   {
-    SELECT ?dossier ?jaar ?description ?subject ?label WHERE 
+    SELECT ?dossier ?jaar ?description ?subject ?label ?scope WHERE 
     {
       ?dossier dct:spatial <https://adamlink.nl/geo/street/stadhouderskade/4284> .
       ?dossier dc:description ?description .
+      ?dossier dc:identifier ?scope .
       OPTIONAL{ 
         ?dossier dc:subject ?subject . 
         ?subject rdfs:label ?label .
