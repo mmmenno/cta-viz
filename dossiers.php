@@ -75,9 +75,11 @@ foreach ($data['results']['bindings'] as $row) {
 	}
 	?>
 
-	<?= $row['description']['value'] ?>
+  <div>
 
+	 <?= $row['description']['value'] ?>
 
+  </div>
 
 	<?php 
 } 
