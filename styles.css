@@ -25,3 +25,9 @@ html, body{
 #dossiers div{
 	margin-bottom: 20px;
 }
+
+a{
+	text-decoration: none;
+	font-weight: bold;
+	color: #E31A1C;
+}

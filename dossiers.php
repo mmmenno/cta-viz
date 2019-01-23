@@ -33,7 +33,7 @@ SELECT * WHERE
   {
     SELECT ?dossier ?jaar ?description ?subject ?label ?scope WHERE 
     {
-      ?dossier dct:spatial <https://adamlink.nl/geo/street/stadhouderskade/4284> .
+      ?dossier dct:spatial <' . $_GET['street'] . '> .
       ?dossier dc:description ?description .
       ?dossier dc:identifier ?scope .
       OPTIONAL{ 
@@ -70,6 +70,10 @@ echo "<h2>" . count($data['results']['bindings']) . " resultaten</h2>";
 echo '<div class="row">';
 
 foreach ($data['results']['bindings'] as $row) { 
+  $description = $row['description']['value'];
+  if (!preg_match("/\.$/", $description)){
+    $description .= ".";
+  }
 	$i++;
 	if($i%2!=0 && $i>1){
 		echo "</div>\n";
@@ -79,7 +83,13 @@ foreach ($data['results']['bindings'] as $row) {
 
   <div>
 
-	 <?= $row['description']['value'] ?>
+    <a href = "<?= $row['dossier']['value'] ?>"><?= $row['scope']['value'] ?></a>
+    <?= $description ?>
+   <? if ($row['jaar']['value']<2500){ ?>
+    <strong><?= $row['jaar']['value'] ?></strong>
+ <? } ?>
+    
+
 
   </div>
 
