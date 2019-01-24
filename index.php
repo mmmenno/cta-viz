@@ -28,6 +28,27 @@
 	<h1>Centraal Tekeningen Archief</h1>
 
 	<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+	<select>
+  		<option value="Categorie">Categorie</option>
+  		<option value="Bruggen">Bruggen</option>
+  		<option value="Speelplaatsen">Speelplaatsen</option>
+  		<option value="Riolen">Riolen</option>
+  		<option value="Scholen">Scholen</option>
+  		<option value="Vegetatie">Vegetatie</option>
+  		<option value="Façades">Façades</option>
+  		<option value="Dokken">Dokken</option>
+  		<option value="Luchthaven">Luchthaven</option>
+  		<option value="Pompinstallaties">Pompinstallaties</option>
+  		<option value="Sportvelden">Sportvelden</option>
+  		<option value="Dierentuinen">Dierentuinen</option>
+  		<option value="Elektrische onderstations">Elektrische onderstations</option>
+  		<option value="Metrostations">Metrostations</option>
+  		<option value="Politiebureaus">Politiebureaus</option>
+  		<option value="Ziekenhuizen">Ziekenhuizen</option>
+  		<option value="Krachtcentrales">Krachtcentrales</option>
+	</select>
+    <input type="text" placeholder="Search.." name="search">
+    <button type="submit"><i class="fa fa-search"></i></button>
 </div>
 
 
