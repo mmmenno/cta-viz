@@ -55,8 +55,6 @@
 		var params = $.param(parameters,true);
 		geojsonfile = 'geojson.php?' + params;
 
-		console.log(geojsonfile);
-
 	    $.getJSON(geojsonfile, function(data) {
 	        streets.addData(data).bringToFront();
 	    });
@@ -74,23 +72,52 @@
 	                     '#FFEDA0';
 	}
 
+	// nice globals!
+	var searchData = {
+	    'street': '',
+	    'start': 0,
+        'end': 0,
+        'term': ''
+    };
+
 	function whenStreetClicked(e) {
     	var props = e['target']['feature']['properties'];
-		console.log(props);
-
+		//console.log(props);
 		$('#resultaten h1').html(props['name'] + ', ' + props['count'] + ' dossiers');
-	  	
-	  	$('#dossiers').load('dossiers.php?street=' + props['street']);
 
+		searchData.street = props['street'];
+		loadDossiers();
 	}
 
-	$('form').submit(function( event ) {
-		console.log( "Handler for .submit() called." );
+	function loadDossiers() {
+        var q = 'var=1';
+        if (searchData.street.length > 1) {
+            q += '&street='+searchData.street;
+        }
+        if (searchData.start > 0) {
+            q += '&start='+searchData.start;
+        }
+        if (searchData.end > 0) {
+            q += '&end='+searchData.end;
+        }
+        if (searchData.term.length > 1) {
+            q += '&term='+searchData.term;
+        }
 
+        $('#dossiers').load('dossiers.php?' + q);
+    }
+
+	$('form').submit(function( event ) {
 		refreshMap();
 		event.preventDefault();
 	});
 
 	$(document).ready(function(){
 		refreshMap();
+
+        $('#aat-term').on('change', function() {
+            console.log( this.value );
+            searchData.term = this.value;
+            loadDossiers();
+        });
 	});

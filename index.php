@@ -28,24 +28,24 @@
 	<h1>Centraal Tekeningen Archief</h1>
 
 	<input type="range" min="1" max="100" value="50" class="slider" id="myRange">
-	<select>
-  		<option value="Categorie">Categorie</option>
-  		<option value="Bruggen">Bruggen</option>
-  		<option value="Speelplaatsen">Speelplaatsen</option>
-  		<option value="Riolen">Riolen</option>
-  		<option value="Scholen">Scholen</option>
-  		<option value="Vegetatie">Vegetatie</option>
-  		<option value="Façades">Façades</option>
-  		<option value="Dokken">Dokken</option>
-  		<option value="Luchthaven">Luchthaven</option>
-  		<option value="Pompinstallaties">Pompinstallaties</option>
-  		<option value="Sportvelden">Sportvelden</option>
-  		<option value="Dierentuinen">Dierentuinen</option>
-  		<option value="Elektrische onderstations">Elektrische onderstations</option>
-  		<option value="Metrostations">Metrostations</option>
-  		<option value="Politiebureaus">Politiebureaus</option>
-  		<option value="Ziekenhuizen">Ziekenhuizen</option>
-  		<option value="Krachtcentrales">Krachtcentrales</option>
+	<select name="term" id="aat-term">
+        <option value="reset">Categorie</option>
+        <option value="http://vocab.getty.edu/aat/300007836">Bruggen</option>
+        <option value="http://vocab.getty.edu/aat/300008203">Speelplaatsen</option>
+        <option value="http://vocab.getty.edu/aat/300006122">Riolen</option>
+        <option value="http://vocab.getty.edu/aat/300006495">Scholen</option>
+        <option value="http://vocab.getty.edu/aat/300266061">Vegetatie</option>
+        <option value="http://vocab.getty.edu/aat/300002526">Façades</option>
+        <option value="http://vocab.getty.edu/aat/300404856">Wal- en Kademuren</option>
+        <option value="http://vocab.getty.edu/aat/300000681">Luchthaven</option>
+        <option value="http://vocab.getty.edu/aat/300006187">Pompinstallaties</option>
+        <option value="http://vocab.getty.edu/aat/300170875">Sportvelden</option>
+        <option value="http://vocab.getty.edu/aat/300000348">Dierentuinen</option>
+        <option value="http://vocab.getty.edu/aat/300006443">Elektrische onderstations</option>
+        <option value="http://vocab.getty.edu/aat/300007780">Metrostations</option>
+        <option value="http://vocab.getty.edu/aat/300006049">Politiebureaus</option>
+        <option value="http://vocab.getty.edu/aat/300006676">Ziekenhuizen</option>
+        <option value="http://vocab.getty.edu/aat/300000414">Krachtcentrales</option>
 	</select>
     <input type="text" placeholder="Search.." name="search">
     <button type="submit"><i class="fa fa-search"></i></button>

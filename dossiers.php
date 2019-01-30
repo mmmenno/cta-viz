@@ -1,7 +1,32 @@
 <?php
 
 
-$sparqlquery = '
+function composeSparqlQuery(
+        $street = '',
+        $yearStart = 0,
+        $yearEnd = 0,
+        $term = ''
+) {
+    $spatialQuery = '';
+    if ($street != '') {
+        $spatialQuery = '?dossier dct:spatial <' . $street . '> .';
+    }
+
+    $termQuery = '';
+    if ($term != '') {
+        $termQuery = '?dossier dc:subject <' . $term . '> .';
+    }
+
+    $yearQuery = '';
+    if ($yearStart > 0 || $yearEnd > 0) {
+        $yearQuery = '
+            FILTER (
+                ?jaar > "' . $yearStart .'"^^xsd:integer && ?jaar < "' . $yearEnd. '"^^xsd:integer
+            )
+        ';
+    }
+
+    $sparqlquery = '
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
@@ -13,33 +38,27 @@ PREFIX hg: <http://rdf.histograph.io/>
 SELECT * WHERE
 { 
   {
-    SELECT ?dossier ?datum ?jaar ?description ?subject ?label ?scope WHERE 
+    SELECT ?dossier ?datum ?jaar ?description WHERE 
     {
-      ?dossier dct:spatial <' . $_GET['street'] . '> .
+      ' . $spatialQuery . '
       ?dossier dc:description ?description .
-      ?dossier dc:identifier ?scope .
-      OPTIONAL{ 
-        ?dossier dc:subject ?subject . 
-        ?subject rdfs:label ?label .
-      }
+      ' . $termQuery . '
       ?dossier dc:date ?datum .
       BIND(IF(COALESCE(xsd:datetime(str(?datum)), "!") != "!",
       year(xsd:dateTime(str(?datum))),"1000"^^xsd:integer) AS ?jaar )
-      FILTER(?jaar>1500)
-      FILTER(?jaar<2970)
+      ' . $yearQuery . '
+      #FILTER(?jaar>1500)
+      #FILTER(?jaar<2970)
     }
   }
   UNION
   {
-    SELECT ?dossier ?jaar ?description ?subject ?label ?scope WHERE 
+    SELECT ?dossier ?jaar ?description WHERE 
     {
-      ?dossier dct:spatial <' . $_GET['street'] . '> .
+      ' . $spatialQuery . '
       ?dossier dc:description ?description .
-      ?dossier dc:identifier ?scope .
-      OPTIONAL{ 
-        ?dossier dc:subject ?subject . 
-        ?subject rdfs:label ?label .
-      }
+      ' . $termQuery . '
+      ' . $yearQuery . '
       FILTER NOT EXISTS{?dossier dc:date ?datum .}
       BIND("3000" AS ?jaar)
     }
@@ -48,7 +67,15 @@ SELECT * WHERE
 ORDER BY ASC (?jaar)
 LIMIT 1000
 ';
+    return $sparqlquery;
+}
 
+$sparqlquery = composeSparqlQuery(
+        $_GET['street'] ?? '',
+        $_GET['start'] ?? 0,
+        $_GET['end'] ?? 0,
+        $_GET['term'] ?? ''
+    );
 //echo $sparqlquery;
 
 
