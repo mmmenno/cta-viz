@@ -47,9 +47,15 @@
 		parameters['bbox'] += ',' + bounds['_northEast']['lng'] + ' ' + bounds['_southWest']['lat'];
 		parameters['bbox'] += ',' + bounds['_southWest']['lng'] + ' ' + bounds['_southWest']['lat'];
 		parameters['bbox'] += ',' + bounds['_southWest']['lng'] + ' ' + bounds['_northEast']['lat'];
+
+		parameters['start'] = 1880; //$('#startyear').val();
+		parameters['end'] = 1890; //$('#endyear').val();
+		parameters['term'] = "http://vocab.getty.edu/aat/300006122";
 		
 		var params = $.param(parameters,true);
 		geojsonfile = 'geojson.php?' + params;
+
+		console.log(geojsonfile);
 
 	    $.getJSON(geojsonfile, function(data) {
 	        streets.addData(data).bringToFront();
@@ -77,6 +83,13 @@
 	  	$('#dossiers').load('dossiers.php?street=' + props['street']);
 
 	}
+
+	$('form').submit(function( event ) {
+		console.log( "Handler for .submit() called." );
+
+		refreshMap();
+		event.preventDefault();
+	});
 
 	$(document).ready(function(){
 		refreshMap();
