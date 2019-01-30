@@ -54,6 +54,24 @@
 
 <div id="map"></div>
 
+<div class='my-legend'>
+<div class='legend-title'>Aantal dossiers per straat</div>
+<div class='legend-scale'>
+  <ul class='legend-labels'>
+    <li><span style='background:#FFEDA0;'></span> >0</li>
+    <li><span style='background:#FED976;'></span> >5</li>
+    <li><span style='background:#FEB24C;'></span> >10</li>
+    <li><span style='background:#FD8D3C;'></span> >20</li>
+    <li><span style='background:#FC4E2A;'></span> >40</li>
+    <li><span style='background:#E31A1C;'></span> >80</li>
+    <li><span style='background:#BD0026;'></span> >160</li>
+    <li><span style='background:#800026;'></span> >320</li>
+  </ul>
+</div>
+
+</div>
+
+
 
 <div id="resultaten">
 
