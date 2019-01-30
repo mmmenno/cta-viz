@@ -83,7 +83,7 @@
 	function whenStreetClicked(e) {
     	var props = e['target']['feature']['properties'];
 		//console.log(props);
-		$('#resultaten h1').html(props['name'] + ', ' + props['count'] + ' dossiers');
+		$('#resultaten h1').html(props['name'] + '');
 
 		searchData.street = props['street'];
 		loadDossiers();
@@ -116,8 +116,11 @@
 		refreshMap();
 
         $('#aat-term').on('change', function() {
-            console.log( this.value );
-            searchData.term = this.value;
+            if (this.value == 'reset') {
+                searchData.term = '';
+            } else {
+                searchData.term = this.value;
+            }
             loadDossiers();
         });
 	});
