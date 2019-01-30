@@ -25,7 +25,7 @@
 <div id="inleiding">
     <h1>Centraal Tekeningen Archief</h1>
 
-    <input type="range" min="1850" max="2000" value="1900" class="slider" id="myRange">
+    <input type="range" min="1630" max="1996" value="1900" class="slider" id="myRange">
 
     <select name="term" id="aat-term">
         <option value="reset">Categorie</option>
@@ -47,7 +47,7 @@
         <option value="http://vocab.getty.edu/aat/300000414">Krachtcentrales</option>
     </select>
     <input type="text" placeholder="Search.." name="search">
-    <button type="submit"><i class="fa fa-search"></i></button>
+    <button type="reset" id="reset-straat">reset straten</button>
 </div>
 
 

@@ -123,4 +123,9 @@
             }
             loadDossiers();
         });
+
+        $('#reset-straat').on('click', function() {
+            searchData.street = '';
+            loadDossiers();
+        });
 	});
