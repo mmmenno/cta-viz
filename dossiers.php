@@ -5,11 +5,24 @@ function composeSparqlQuery(
         $street = '',
         $yearStart = 0,
         $yearEnd = 0,
-        $term = ''
+        $term = '',
+        $searchterms = ''
 ) {
     $spatialQuery = '';
     if ($street != '') {
         $spatialQuery = '?dossier dct:spatial <' . $street . '> .';
+    }
+
+    $stringQuery = '';
+    if($searchterms != ""){
+      $terms = explode(" ", urldecode($searchterms));
+      foreach ($terms as $key => $value) {
+        if(strlen($value)>3){
+          $stringQuery .= "
+          ?dossier dc:description ?description" . $key . " .
+          ?description" . $key . " bif:contains \"'" . $value . "*'\" .\n";
+        }
+      }
     }
 
     $termQuery = '';
@@ -19,9 +32,11 @@ function composeSparqlQuery(
 
     $yearQuery = '';
     if ($yearStart > 0 || $yearEnd > 0) {
+        $yearStart -= 1;
+        $yearEnd += 1;
         $yearQuery = '
             FILTER (
-                ?jaar > "' . $yearStart .'"^^xsd:integer && ?jaar < "' . $yearEnd. '"^^xsd:integer
+                ?jaar > "' . $yearStart .'"^^xsd:integer && ?jaar < "' . $yearEnd . '"^^xsd:integer
             )
         ';
     }
@@ -47,6 +62,7 @@ SELECT * WHERE
       BIND(IF(COALESCE(xsd:datetime(str(?datum)), "!") != "!",
       year(xsd:dateTime(str(?datum))),"1000"^^xsd:integer) AS ?jaar )
       ' . $yearQuery . '
+      ' . $stringQuery . '
       #FILTER(?jaar>1500)
       #FILTER(?jaar<2970)
     }
@@ -59,6 +75,7 @@ SELECT * WHERE
       ?dossier dc:description ?description .
       ' . $termQuery . '
       ' . $yearQuery . '
+      ' . $stringQuery . '
       FILTER NOT EXISTS{?dossier dc:date ?datum .}
       BIND("3000" AS ?jaar)
     }
@@ -74,7 +91,8 @@ $sparqlquery = composeSparqlQuery(
         $_GET['street'] ?? '',
         $_GET['start'] ?? 0,
         $_GET['end'] ?? 0,
-        $_GET['term'] ?? ''
+        $_GET['term'] ?? '',
+        $_GET['searchterms'] ?? ''
     );
 //echo $sparqlquery;
 
@@ -105,7 +123,7 @@ foreach ($data['results']['bindings'] as $row) {
     }
     ?>
     <div>
-        <a href="<?= $row['dossier']['value'] ?>">
+        <a target="_blank" href="<?= $row['dossier']['value'] ?>">
             <?= str_replace('https://archief.amsterdam/archief/10057/', '',
                 $row['dossier']['value']) ?>
         </a>
@@ -124,8 +142,3 @@ if ($i % 2 != 0) {
     echo '</div>';
 }
 ?>
-
-<a target="_blank" style="font-size:36px; margin: 40px 0 40px 0; display: block;" href="<?= $querylink ?>">SPARQL it
-    yourself</a>
-
-

@@ -25,36 +25,44 @@
 <div id="inleiding">
     <h1>Centraal Tekeningen Archief</h1>
 
-    <input type="range" min="1630" max="1996" value="1900" class="slider" id="myRange">
-
-    <select name="term" id="aat-term">
-        <option value="reset">Categorie</option>
-        <option value="http://vocab.getty.edu/aat/300007836">Bruggen</option>
-        <option value="http://vocab.getty.edu/aat/300008203">Speelplaatsen</option>
-        <option value="http://vocab.getty.edu/aat/300006122">Riolen</option>
-        <option value="http://vocab.getty.edu/aat/300006495">Scholen</option>
-        <option value="http://vocab.getty.edu/aat/300266061">Vegetatie</option>
-        <option value="http://vocab.getty.edu/aat/300002526">Façades</option>
-        <option value="http://vocab.getty.edu/aat/300404856">Wal- en Kademuren</option>
-        <option value="http://vocab.getty.edu/aat/300000681">Luchthaven</option>
-        <option value="http://vocab.getty.edu/aat/300006187">Pompinstallaties</option>
-        <option value="http://vocab.getty.edu/aat/300170875">Sportvelden</option>
-        <option value="http://vocab.getty.edu/aat/300000348">Dierentuinen</option>
-        <option value="http://vocab.getty.edu/aat/300006443">Elektrische onderstations</option>
-        <option value="http://vocab.getty.edu/aat/300007780">Metrostations</option>
-        <option value="http://vocab.getty.edu/aat/300006049">Politiebureaus</option>
-        <option value="http://vocab.getty.edu/aat/300006676">Ziekenhuizen</option>
-        <option value="http://vocab.getty.edu/aat/300000414">Krachtcentrales</option>
-    </select>
-    <input type="text" placeholder="Search.." name="search">
-    <button type="reset" id="reset-straat">reset straten</button>
+    <form>
+        <div id="firstformrow">
+            Zoek straten met dossiers tussen <span id="from"></span>
+            <input type="range" min="1630" max="1996" value="1630" class="slider" id="fromyear">
+            en <span id="until"></span>
+            <input type="range" min="1630" max="1996" value="1996" class="slider" id="untilyear" />
+        
+            binnen  
+            <select name="term" id="aat-term">
+                <option value="">alle categorieën</option>
+                <option value="http://vocab.getty.edu/aat/300007836">Bruggen</option>
+                <option value="http://vocab.getty.edu/aat/300008203">Speelplaatsen</option>
+                <option value="http://vocab.getty.edu/aat/300006122">Riolen</option>
+                <option value="http://vocab.getty.edu/aat/300006495">Scholen</option>
+                <option value="http://vocab.getty.edu/aat/300266061">Vegetatie</option>
+                <option value="http://vocab.getty.edu/aat/300002526">Façades</option>
+                <option value="http://vocab.getty.edu/aat/300404856">Wal- en Kademuren</option>
+                <option value="http://vocab.getty.edu/aat/300000681">Luchthaven</option>
+                <option value="http://vocab.getty.edu/aat/300006187">Pompinstallaties</option>
+                <option value="http://vocab.getty.edu/aat/300170875">Sportvelden</option>
+                <option value="http://vocab.getty.edu/aat/300000348">Dierentuinen</option>
+                <option value="http://vocab.getty.edu/aat/300006443">Elektrische onderstations</option>
+                <option value="http://vocab.getty.edu/aat/300007780">Metrostations</option>
+                <option value="http://vocab.getty.edu/aat/300006049">Politiebureaus</option>
+                <option value="http://vocab.getty.edu/aat/300006676">Ziekenhuizen</option>
+                <option value="http://vocab.getty.edu/aat/300000414">Krachtcentrales</option>
+            </select>
+        </div>
+        
+        <input style="width: 350px;" type="text" placeholder="dossierbeschrijving bevat deze termen" id="search-terms" name="search-terms">
+        <button type="submit" id="submit-query">toon straten</button> (max. 50 straten, zoom in voor meer)
+    </form>
 </div>
 
 
 <div id="map"></div>
 
 <div class='my-legend'>
-    <div class='legend-title'>Aantal dossiers per straat</div>
     <div class='legend-scale'>
         <ul class='legend-labels'>
             <li><span style='background:#FFEDA0;'></span> >0</li>
@@ -67,6 +75,7 @@
             <li><span style='background:#800026;'></span> >320</li>
         </ul>
     </div>
+    <div class='legend-title'>Aantal dossiers per straat</div>
 </div><br>
 
 <div id="resultaten">

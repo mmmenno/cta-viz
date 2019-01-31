@@ -1,6 +1,6 @@
 
-	var center = [52.359716,4.900029];
-	var zoomlevel = 15;
+	var center = [52.368716,4.900029];
+	var zoomlevel = 13;
 	var map = L.map('map', {
         center: center,
         zoom: zoomlevel,
@@ -23,6 +23,13 @@
 	});
 
 	function refreshMap(){
+
+		$('#resultaten h1').html('klik op een straat om dossiers te zien');
+		$('#dossiers').html('');
+
+		if (typeof streets !== 'undefined') {
+		    map.removeLayer(streets);
+		}
 
 		streets = L.geoJson(null, {
 		    style: function(feature) {
@@ -48,9 +55,10 @@
 		parameters['bbox'] += ',' + bounds['_southWest']['lng'] + ' ' + bounds['_southWest']['lat'];
 		parameters['bbox'] += ',' + bounds['_southWest']['lng'] + ' ' + bounds['_northEast']['lat'];
 
-		parameters['start'] = 1880; //$('#startyear').val();
-		parameters['end'] = 1890; //$('#endyear').val();
-		parameters['term'] = "http://vocab.getty.edu/aat/300006122";
+		parameters['start'] = $('#fromyear').val();
+		parameters['end'] = $('#untilyear').val();
+		parameters['term'] = $('#aat-term').val();
+		parameters['searchterms'] = $('#search-terms').val();
 		
 		var params = $.param(parameters,true);
 		geojsonfile = 'geojson.php?' + params;
@@ -72,40 +80,21 @@
 	                     '#FFEDA0';
 	}
 
-	// nice globals!
-	var searchData = {
-	    'street': '',
-	    'start': 0,
-        'end': 0,
-        'term': ''
-    };
-
 	function whenStreetClicked(e) {
     	var props = e['target']['feature']['properties'];
 		//console.log(props);
 		$('#resultaten h1').html(props['name'] + '');
 
-		searchData.street = props['street'];
-		loadDossiers();
+		var parameters = {};
+		parameters['street'] = props['street'];
+		parameters['start'] = $('#fromyear').val();
+		parameters['end'] = $('#untilyear').val();
+		parameters['term'] = $('#aat-term').val();
+		parameters['searchterms'] = $('#search-terms').val();
+		
+		var params = $.param(parameters,true);
+		$('#dossiers').load('dossiers.php?' + params);
 	}
-
-	function loadDossiers() {
-        var q = 'var=1';
-        if (searchData.street.length > 1) {
-            q += '&street='+searchData.street;
-        }
-        if (searchData.start > 0) {
-            q += '&start='+searchData.start;
-        }
-        if (searchData.end > 0) {
-            q += '&end='+searchData.end;
-        }
-        if (searchData.term.length > 1) {
-            q += '&term='+searchData.term;
-        }
-
-        $('#dossiers').load('dossiers.php?' + q);
-    }
 
 	$('form').submit(function( event ) {
 		refreshMap();
@@ -113,19 +102,26 @@
 	});
 
 	$(document).ready(function(){
+
+		showYears();
 		refreshMap();
 
-        $('#aat-term').on('change', function() {
-            if (this.value == 'reset') {
-                searchData.term = '';
-            } else {
-                searchData.term = this.value;
-            }
-            loadDossiers();
+        $('#fromyear').on('input',function(){
+        	showYears();
         });
 
-        $('#reset-straat').on('click', function() {
-            searchData.street = '';
-            loadDossiers();
+        $('#untilyear').on('input',function(){
+        	showYears();
         });
+
+
+
 	});
+
+	function showYears(){
+		var fromyear = $('#fromyear').val();
+		var untilyear = $('#untilyear').val();
+		console.log(fromyear);
+		$('#from').text(fromyear);
+		$('span#until').text(untilyear);
+	}

@@ -10,13 +10,37 @@ PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
 PREFIX hg: <http://rdf.histograph.io/>
 SELECT DISTINCT ?street ?label ?wkt (COUNT(?dossier) AS ?count) WHERE {
-  ?street a hg:Street ;
-  	geo:hasGeometry/geo:asWKT ?wkt ;
-  	skos:prefLabel ?label .
-  ?dossier dct:spatial ?street .
-  bind (bif:st_geomfromtext(?wkt) as ?streetgeom) .
-  bind (bif:st_geomfromtext("POLYGON((' . $_GET['bbox'] . '))") as ?bbox) .
-  FILTER (bif:st_intersects(?streetgeom, ?bbox))
+	?street a hg:Street ;
+		geo:hasGeometry/geo:asWKT ?wkt ;
+		skos:prefLabel ?label .
+	?dossier dct:spatial ?street .
+	?dossier dc:date ?datum .
+	BIND(year(?datum) AS ?year) .
+	FILTER(?year >= ' . $_GET['start'] . ') .
+	FILTER(?year <= ' . $_GET['end'] . ') .
+	';
+
+if(isset($_GET['term']) && $_GET['term'] != ""){
+	$sparqlquery .= '
+	?dossier dc:subject <' . $_GET['term'] . '> .
+	';
+}
+
+if(isset($_GET['searchterms']) && $_GET['searchterms'] != ""){
+	$terms = explode(" ", urldecode($_GET['searchterms']));
+	foreach ($terms as $key => $value) {
+		if(strlen($value)>3){
+			$sparqlquery .= "
+			?dossier dc:description ?description" . $key . " .
+			?description" . $key . " bif:contains \"'" . $value . "*'\" .\n";
+		}
+	}
+}
+
+$sparqlquery .= '
+	bind (bif:st_geomfromtext(?wkt) as ?streetgeom) .
+	bind (bif:st_geomfromtext("POLYGON((' . $_GET['bbox'] . '))") as ?bbox) .
+	FILTER (bif:st_intersects(?streetgeom, ?bbox))
 } 
 GROUP BY ?street ?wkt ?label
 ORDER BY DESC (?count)
