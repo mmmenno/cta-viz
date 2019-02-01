@@ -42,7 +42,7 @@ form{
 select{
     font-size: 16px;
 }
-input, button{
+input[type="text"], button{
     font-size: 14px;
     padding: 3px 8px;
     border:1px solid #000;
