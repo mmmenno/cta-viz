@@ -1,3 +1,5 @@
+	
+	var streeturi = "";
 
 	var center = [52.368716,4.900029];
 	var zoomlevel = 13;
@@ -24,8 +26,8 @@
 
 	function refreshMap(){
 
-		$('#resultaten h1').html('klik op een straat om dossiers te zien');
-		$('#dossiers').html('');
+		//$('#resultaten h1').html('klik op een straat om dossiers te zien');
+		//$('#dossiers').html('');
 
 		if (typeof streets !== 'undefined') {
 		    map.removeLayer(streets);
@@ -84,9 +86,13 @@
     	var props = e['target']['feature']['properties'];
 		//console.log(props);
 		$('#resultaten h1').html(props['name'] + '');
+		streeturi = props['street'];
+		loadDossiers();
+	}
 
+	function loadDossiers(){
 		var parameters = {};
-		parameters['street'] = props['street'];
+		parameters['street'] = streeturi;
 		parameters['start'] = $('#fromyear').val();
 		parameters['end'] = $('#untilyear').val();
 		parameters['term'] = $('#aat-term').val();
@@ -98,6 +104,9 @@
 
 	$('form').submit(function( event ) {
 		refreshMap();
+		if(streeturi!=""){
+			loadDossiers();
+		}
 		event.preventDefault();
 	});
 
@@ -114,6 +123,19 @@
         	showYears();
         });
 
+        $('#fromyear').on('change',function(){
+        	$('form').submit();
+        });
+		$('#untilyear').on('change',function(){
+        	$('form').submit();
+        });
+        $('#aat-term').on('change',function(){
+        	$('form').submit();
+        });
+        $('#search-terms').on('change',function(){
+        	$('form').submit();
+        });
+
 
 
 	});
@@ -121,7 +143,7 @@
 	function showYears(){
 		var fromyear = $('#fromyear').val();
 		var untilyear = $('#untilyear').val();
-		console.log(fromyear);
+		
 		$('#from').text(fromyear);
 		$('span#until').text(untilyear);
 	}
