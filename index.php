@@ -54,7 +54,7 @@
             </select>
         </div>
         
-        <input style="width: 350px;" type="text" placeholder="dossierbeschrijving bevat deze termen" id="search-terms" name="search-terms">
+        <input style="width: 350px;" type="text" placeholder="(begin van) zoektermen, bijv. 'centr verwa'" id="search-terms" name="search-terms">
         <button type="submit" id="submit-query">toon straten</button> (max. 50 straten, zoom in voor meer)
     </form>
 </div>
