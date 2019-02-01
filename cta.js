@@ -26,9 +26,6 @@
 
 	function refreshMap(){
 
-		//$('#resultaten h1').html('klik op een straat om dossiers te zien');
-		//$('#dossiers').html('');
-
 		if (typeof streets !== 'undefined') {
 		    map.removeLayer(streets);
 		}
@@ -84,7 +81,6 @@
 
 	function whenStreetClicked(e) {
     	var props = e['target']['feature']['properties'];
-		//console.log(props);
 		$('#resultaten h1').html(props['name'] + '');
 		streeturi = props['street'];
 		loadDossiers();
@@ -118,7 +114,6 @@
         $('#fromyear').on('input',function(){
         	showYears();
         });
-
         $('#untilyear').on('input',function(){
         	showYears();
         });
@@ -144,6 +139,8 @@
 		var fromyear = $('#fromyear').val();
 		var untilyear = $('#untilyear').val();
 		
-		$('#from').text(fromyear);
+		$('span#from').text(fromyear);
 		$('span#until').text(untilyear);
 	}
+
+
