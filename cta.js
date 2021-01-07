@@ -8,7 +8,7 @@
         zoom: zoomlevel,
         minZoom: 6,
         maxZoom: 20,
-        scrollWheelZoom: false
+        scrollWheelZoom: true
     });
 
 	L.tileLayer('https://stamen-tiles-{s}.a.ssl.fastly.net/toner/{z}/{x}/{y}{r}.{ext}', {
