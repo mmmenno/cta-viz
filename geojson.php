@@ -1,5 +1,10 @@
 <?php
 
+
+phpinfo();
+die;
+
+
 include("functions.php");
 
 
@@ -90,7 +95,7 @@ $context = stream_context_create($opts);
 try{  
 
 	// Open the file using the HTTP headers set above
-	$json = file_get_contents($url, false, $context);
+	//$json = file_get_contents($url, false, $context);
 
 }catch(Exception $e){
 
