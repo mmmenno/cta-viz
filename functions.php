@@ -31,7 +31,7 @@ function getSparqlResults($endpoint,$query,$cache = false){
 	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 	curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'GET');
 	curl_setopt($ch,CURLOPT_USERAGENT,'CTA app');
-	curl_setopt($ch,CURLOPT_SSL_VERIFYPEER, false)
+	curl_setopt($ch,CURLOPT_SSL_VERIFYPEER, false);
 	$headers = [
 	    'Accept: application/sparql-results+json'
 	];
