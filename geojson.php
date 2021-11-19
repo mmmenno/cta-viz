@@ -1,5 +1,8 @@
 <?php
 
+include("functions.php");
+
+
 
 $sparqlquery = '
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -95,13 +98,20 @@ try{
 
 }
 
+$endpoint = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta/sparql";
+$sparql = $sparqlquery;
+
+$json = getSparqlResults($endpoint,$sparql);
+
 $data = json_decode($json,true);
+
 
 echo "json:\n\n";
 print_r($json);
 echo "data:\n\n";
 print_r($data);
 die;
+
 
 $fc = array("type"=>"FeatureCollection","query" => $querylink, "features"=>array());
 
