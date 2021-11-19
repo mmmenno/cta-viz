@@ -1,5 +1,7 @@
 <?php
 
+include("functions.php");
+
 
 function composeSparqlQuery(
         $street = '',
@@ -94,33 +96,19 @@ $sparqlquery = composeSparqlQuery(
         $_GET['term'] ?? '',
         $_GET['searchterms'] ?? ''
     );
-//echo $sparqlquery;
 
-/*
-$url = "https://api.druid.datalegend.net/datasets/saa/CTA/services/endpoint/sparql?query=" . urlencode($sparqlquery) . "";
-
-$querylink = "https://druid.datalegend.net/saa/CTA/sparql/endpoint#query=" . urlencode($sparqlquery) . "&endpoint=https%3A%2F%2Fdruid.datalegend.net%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=table";
-*/
 
 $url = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta/sparql?query=" . urlencode($sparqlquery) . "";
 
 $querylink = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta#query=" . urlencode($sparqlquery) . "&endpoint=https%3A%2F%2Fdruid.datalegend.net%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=table";
 
 
-// Druid does not like url parameters, send accept header instead
-$opts = [
-    "http" => [
-        "method" => "GET",
-        "header" => "Accept: application/sparql-results+json\r\n"
-    ]
-];
+$endpoint = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta/sparql";
 
-$context = stream_context_create($opts);
-
-// Open the file using the HTTP headers set above
-$json = file_get_contents($url, false, $context);
+$json = getSparqlResults($endpoint,$sparqlquery);
 
 $data = json_decode($json,true);
+
 
 $i = 0;
 
