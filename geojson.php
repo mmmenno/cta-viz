@@ -1,5 +1,7 @@
 <?php
 
+phpinfo();
+die;
 
 $sparqlquery = '
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
@@ -47,8 +49,8 @@ ORDER BY DESC (?count)
 LIMIT 50
 ';
 
-echo $sparqlquery;
-die;
+//echo $sparqlquery;
+//die;
 
 /*
 $url = "https://api.data.adamlink.nl/datasets/saa/CTA/services/endpoint/sparql?default-graph-uri=&query=" . urlencode($sparqlquery) . "&format=application%2Fsparql-results%2Bjson&timeout=120000&debug=on";
