@@ -1,11 +1,6 @@
 <?php
 
 
-$html = file_get_contents("http://islandsofmeaning.nl/");
-echo $html;
-die;
-
-
 include("functions.php");
 
 
@@ -81,7 +76,9 @@ $url = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterda
 
 $querylink = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta#query=" . urlencode($sparqlquery) . "&endpoint=https%3A%2F%2Fdruid.datalegend.net%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=table";
 
-
+$json = file_get_contents($url);
+echo $json;
+die;
 
 // Druid does not like url parameters, send accept header instead
 $opts = [
