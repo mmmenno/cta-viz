@@ -79,6 +79,7 @@ $querylink = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefam
 try{  
 
 	$json = file_get_contents($url);
+	echo $json;
 
 }catch(Exception $e){
 
