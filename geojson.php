@@ -97,7 +97,11 @@ try{
 
 $data = json_decode($json,true);
 
+echo "json:\n\n";
+print_r($json);
+echo "data:\n\n";
 print_r($data);
+die;
 
 $fc = array("type"=>"FeatureCollection","query" => $querylink, "features"=>array());
 
