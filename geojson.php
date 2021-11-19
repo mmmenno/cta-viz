@@ -88,7 +88,7 @@ try{
 
 	// Open the file using the HTTP headers set above
 	$json = file_get_contents($url, false, $context);
-	
+
 }catch(Exception $e){
 
     echo $e->getMessage();
@@ -97,6 +97,7 @@ try{
 
 $data = json_decode($json,true);
 
+print_r($data);
 
 $fc = array("type"=>"FeatureCollection","query" => $querylink, "features"=>array());
 
