@@ -1,7 +1,8 @@
 <?php
 
 
-phpinfo();
+$html = file_get_contents("http://islandsofmeaning.nl/");
+echo $html;
 die;
 
 
