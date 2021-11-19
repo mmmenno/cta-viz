@@ -51,65 +51,12 @@ ORDER BY DESC (?count)
 LIMIT 50
 ';
 
-//echo $sparqlquery;
-//die;
-
-/*
-$url = "https://api.data.adamlink.nl/datasets/saa/CTA/services/endpoint/sparql?default-graph-uri=&query=" . urlencode($sparqlquery) . "&format=application%2Fsparql-results%2Bjson&timeout=120000&debug=on";
-
-$querylink = "https://api.data.adamlink.nl/datasets/saa/CTA/services/endpoint#query=" . urlencode($sparqlquery) . "&contentTypeConstruct=text%2Fturtle&contentTypeSelect=application%2Fsparql-results%2Bjson&endpoint=https%3A%2F%2Fdata.adamlink.nl%2F_api%2Fdatasets%2Fmenno%2Falles%2Fservices%2Falles%2Fsparql&requestMethod=POST&tabTitle=Query&headers=%7B%7D&outputFormat=table";
-
-
-
-$json = file_get_contents($url);
-
-$data = json_decode($json,true);
-
-
-$url = "https://api.druid.datalegend.net/datasets/saa/CTA/services/endpoint/sparql?query=" . urlencode($sparqlquery) . "";
-
-$querylink = "https://druid.datalegend.net/saa/CTA/sparql/endpoint#query=" . urlencode($sparqlquery) . "&endpoint=https%3A%2F%2Fdruid.datalegend.net%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=table";
-*/
 
 
 $url = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta/sparql?query=" . urlencode($sparqlquery) . "";
 
 $querylink = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta#query=" . urlencode($sparqlquery) . "&endpoint=https%3A%2F%2Fdruid.datalegend.net%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=table";
 
-try{  
-
-	$json = file_get_contents($url);
-	echo $json;
-
-}catch(Exception $e){
-
-    echo $e->getMessage();
-    echo "something went wrong";
-
-}
-
-die;
-
-// Druid does not like url parameters, send accept header instead
-$opts = [
-    "http" => [
-        "method" => "GET",
-        "header" => "Accept: application/sparql-results+json\r\n"
-    ]
-];
-
-$context = stream_context_create($opts);
-
-try{  
-
-	// Open the file using the HTTP headers set above
-	//$json = file_get_contents($url, false, $context);
-
-}catch(Exception $e){
-
-    echo $e->getMessage();
-
-}
 
 $endpoint = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta/sparql";
 $sparql = $sparqlquery;
@@ -117,13 +64,6 @@ $sparql = $sparqlquery;
 $json = getSparqlResults($endpoint,$sparql);
 
 $data = json_decode($json,true);
-
-
-echo "json:\n\n";
-print_r($json);
-echo "data:\n\n";
-print_r($data);
-die;
 
 
 $fc = array("type"=>"FeatureCollection","query" => $querylink, "features"=>array());
