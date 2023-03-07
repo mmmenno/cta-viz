@@ -6,6 +6,7 @@ include("functions.php");
 
 
 $sparqlquery = '
+PREFIX bif: <http://www.openlinksw.com/schemas/bif#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
@@ -36,7 +37,8 @@ if(isset($_GET['searchterms']) && $_GET['searchterms'] != ""){
 		if(strlen($value)>3){
 			$sparqlquery .= "
 			?dossier dc:description ?description" . $key . " .
-			?description" . $key . " bif:contains \"'" . $value . "*'\" .\n";
+			# OLD: ?description" . $key . " bif:contains \"'" . $value . "*'\" 
+			FILTER(REGEX(?description" . $key . ",\"" . $value . "\")) .\n";
 		}
 	}
 }
@@ -55,8 +57,11 @@ LIMIT 50
 
 $url = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta/sparql?query=" . urlencode($sparqlquery) . "";
 
+//echo $url;
+
 $querylink = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta#query=" . urlencode($sparqlquery) . "&endpoint=https%3A%2F%2Fdruid.datalegend.net%2F_api%2Fdatasets%2FAdamNet%2Fall%2Fservices%2Fendpoint%2Fsparql&requestMethod=POST&outputFormat=table";
 
+//echo "\n\n" . $sparqlquery . "\n\n";
 
 $endpoint = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta/sparql";
 $sparql = $sparqlquery;

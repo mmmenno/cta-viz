@@ -22,7 +22,8 @@ function composeSparqlQuery(
         if(strlen($value)>3){
           $stringQuery .= "
           ?dossier dc:description ?description" . $key . " .
-          ?description" . $key . " bif:contains \"'" . $value . "*'\" .\n";
+          #?description" . $key . " bif:contains \"'" . $value . "*'\"
+          FILTER(REGEX(?description" . $key . ",\"" . $value . "\")) .\n";
         }
       }
     }
@@ -44,6 +45,8 @@ function composeSparqlQuery(
     }
 
     $sparqlquery = '
+PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX bif: <http://www.openlinksw.com/schemas/bif#>
 PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
 PREFIX geo: <http://www.opengis.net/ont/geosparql#>
 PREFIX dc: <http://purl.org/dc/elements/1.1/>
@@ -97,6 +100,7 @@ $sparqlquery = composeSparqlQuery(
         $_GET['searchterms'] ?? ''
     );
 
+//echo "<code><pre>\n\n" . htmlentities($sparqlquery) . "\n\n</pre></code>";
 
 $url = "https://api.data.netwerkdigitaalerfgoed.nl/datasets/stadsarchiefamsterdam/cta/services/cta/sparql?query=" . urlencode($sparqlquery) . "";
 
